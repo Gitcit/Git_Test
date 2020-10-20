@@ -17,12 +17,6 @@ public class TestMain {
         InfluxDB influxDB = InfluxDBFactory.connect("http://192.168.1.168:8086", "", "");
         Query query = new Query("SELECT * FROM cq WHERE time > now() - 5m", "_internal");
         QueryResult resultDb = influxDB.query(query);
-//        InfluxDBResultMapper resultMapper = new InfluxDBResultMapper();
-//        List<TestInflux> testInfluxes = resultMapper.toPOJO(result, TestInflux.class);
-//       testInfluxes.forEach(influx ->{
-//           System.out.println(influx);
-//       });
-//        System.out.println(result.getResults().get(0).getSeries().get(0).getValues());
         QueryResult.Result result = resultDb.getResults().get(0);
         if (result.getSeries() != null) {
             List<List<Object>> listStream = result.getSeries().stream().map(QueryResult.Series::getValues)
